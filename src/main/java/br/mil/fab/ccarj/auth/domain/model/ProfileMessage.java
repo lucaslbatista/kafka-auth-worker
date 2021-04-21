@@ -9,7 +9,7 @@ import java.io.Serializable;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class PerfilMessage implements Serializable {
+public class ProfileMessage implements Serializable {
     private String name;
     private String clientId;
 }

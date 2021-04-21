@@ -1,6 +1,6 @@
 package br.mil.fab.ccarj.auth.controller;
 
-import br.mil.fab.ccarj.auth.domain.model.ApplicationMessage;
+import br.mil.fab.ccarj.auth.domain.model.EnrollmentMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ProducerController {
 
-    private final KafkaTemplate<String, ApplicationMessage> kafkaTemplate;
+    private final KafkaTemplate<String, EnrollmentMessage> kafkaTemplate;
 
     @Value("${order.topic}")
     private String topic;
@@ -29,13 +29,13 @@ public class ProducerController {
 //	]
 //    }
 
-    public ProducerController(KafkaTemplate<String, ApplicationMessage> kafkaTemplate) {
+    public ProducerController(KafkaTemplate<String, EnrollmentMessage> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public void send(@RequestBody ApplicationMessage message) {
+    public void send(@RequestBody EnrollmentMessage message) {
         kafkaTemplate.send(topic, message);
     }
 }

@@ -10,8 +10,8 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApplicationMessage implements Serializable {
+public class EnrollmentMessage implements Serializable {
     private OperationType operation;
     private String cpf;
-    private List<PerfilMessage> perfis;
+    private List<ProfileMessage> perfis;
 }

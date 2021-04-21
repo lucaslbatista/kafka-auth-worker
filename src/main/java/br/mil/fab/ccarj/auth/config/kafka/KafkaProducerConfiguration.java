@@ -1,7 +1,6 @@
-package br.mil.fab.ccarj.auth.service;
+package br.mil.fab.ccarj.auth.config.kafka;
 
-import br.mil.fab.ccarj.auth.domain.model.ApplicationMessage;
-import org.springframework.kafka.support.serializer.JsonSerializer;
+import br.mil.fab.ccarj.auth.domain.model.EnrollmentMessage;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class KafkaProducerConfiguration {
     @Value("${spring.kafka.producer.bootstrap-servers}")
     String producerIp;
     @Bean
-    public ProducerFactory<String, ApplicationMessage> producerFactory(){
+    public ProducerFactory<String, EnrollmentMessage> producerFactory(){
 
         Map<String, Object> config = new HashMap<>();
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, producerIp);
@@ -30,7 +30,7 @@ public class KafkaProducerConfiguration {
     }
 
     @Bean
-    public KafkaTemplate<String, ApplicationMessage> kafkaTemplate(){
+    public KafkaTemplate<String, EnrollmentMessage> kafkaTemplate(){
         return new KafkaTemplate<>(producerFactory());
     }
 
