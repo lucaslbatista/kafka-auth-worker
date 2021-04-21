@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 @Service
 public class KeycloakServiceImpl implements KeycloakService {
 
-
     private Keycloak getKeyclakInstance(String clientId) {
         return KeycloakBuilder.builder()
                 .serverUrl("http://localhost:8086/auth")
