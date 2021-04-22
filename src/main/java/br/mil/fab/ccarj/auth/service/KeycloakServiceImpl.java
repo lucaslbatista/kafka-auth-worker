@@ -13,12 +13,20 @@ import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class KeycloakServiceImpl implements KeycloakService {
+
+    private Keycloak keyclakInstance;
+
+    @PostConstruct
+    private void init(){
+        keyclakInstance = getKeyclakInstance("admin-cli");
+    }
 
     private Keycloak getKeyclakInstance(String clientId) {
         return KeycloakBuilder.builder()
@@ -53,11 +61,11 @@ public class KeycloakServiceImpl implements KeycloakService {
 
     @Override
     public void assignUserToGroup(EnrollmentMessage message) {
-        Keycloak keyclakInstance = getKeyclakInstance("admin-cli");
+        //Keycloak keyclakInstance = getKeyclakInstance("admin-cli");
         RealmResource realmResource = keyclakInstance.realm("master");
 
         List<GroupRepresentation> groupRepresentationList = new ArrayList<>();
-        message.getPerfis().forEach(perfil -> {
+        message.getProfiles().forEach(perfil -> {
             String groupPath = "//" + perfil.getClientId() + "//" + perfil.getName();
             groupRepresentationList.add(realmResource.getGroupByPath(groupPath));
         });
@@ -81,7 +89,7 @@ public class KeycloakServiceImpl implements KeycloakService {
         Keycloak keyclakInstance = getKeyclakInstance("admin-cli");
         RealmResource realmResource = keyclakInstance.realm("master");
 
-        ProfileMessage profileMessage = message.getPerfis().get(0); //defender aqui
+        ProfileMessage profileMessage = message.getProfiles().get(0); //defender aqui
 
         String groupPath = "//" + profileMessage.getClientId() + "//" + profileMessage.getName();
         GroupRepresentation group = realmResource.getGroupByPath(groupPath);

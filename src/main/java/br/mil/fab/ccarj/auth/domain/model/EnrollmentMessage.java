@@ -13,5 +13,5 @@ import java.util.List;
 public class EnrollmentMessage implements Serializable {
     private OperationType operation;
     private String cpf;
-    private List<ProfileMessage> perfis;
+    private List<ProfileMessage> profiles;
 }

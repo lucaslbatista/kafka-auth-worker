@@ -3,6 +3,7 @@ package br.mil.fab.ccarj.auth.controller;
 import br.mil.fab.ccarj.auth.domain.model.EnrollmentMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,8 @@ public class ProducerController {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public void send(@RequestBody EnrollmentMessage message) {
+    public ResponseEntity<String> send(@RequestBody EnrollmentMessage message) {
         kafkaTemplate.send(topic, message);
+        return ResponseEntity.ok("ok");
     }
 }
